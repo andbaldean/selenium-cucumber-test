@@ -1,6 +1,7 @@
 package search;
 
 import com.google.common.annotations.VisibleForTesting;
+import org.example.AppConfig;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -21,29 +22,28 @@ public class SimpleSearchTest {
 
         WebDriver driver = new ChromeDriver();
 
-        driver.get("http://testfasttrackit.info/selenium-test/");
+        driver.get("https://www.cel.ro/");
 
-        String searchKeyword = "vase";
+      String searchKeyword = "vase";
 
-        driver.findElement(By.id("search")).sendKeys(searchKeyword + Keys.ENTER);
+        driver.findElement(By.id("keyword")).sendKeys("vase" + Keys.ENTER);
 
-        System.out.println("Pressed Enter in search field.");
+       System.out.println("Pressed Enter in search field.");
 
-        List<WebElement> productNames = driver.findElements(By.cssSelector("h2.product-name a"));
+       List<WebElement> productNames = driver.findElements(By.cssSelector("div:nth-child(1)"));
 
-        System.out.println("Stored " + productNames.size() + " product names");
+      System.out.println("Stored " + productNames.size() + " product names");
 
-        for (WebElement productName : productNames) {
-            assertThat("Some of the products names do not contain the searched keyword.",
-                    productName.getText(), containsString(searchKeyword.toUpperCase()));
-
-
-        }
+       for (WebElement productName : productNames) {
+          assertThat("Some of the products names do not contain the searched keyword.",
+                productName.getText(), containsString(searchKeyword.toUpperCase()));
 
 
+      }
 
 
-   //     driver.findElement(By.xpath("//div[@class='product-info' and ./descendant::*[text()='Herald Glass Vase']]//button[@title='Add to Cart']")).click();
+
+
 
 
 
